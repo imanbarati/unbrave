@@ -1,0 +1,65 @@
+name: Android Build Skeleton
+
+on:
+  workflow_dispatch:
+  push:
+    branches: [ main ]
+    paths:
+      - '.github/workflows/android-build.yml'
+
+# WARNING:
+# This is a skeleton only.
+# Building Brave/Chromium requires far more disk space, memory, and time
+# than GitHub-hosted runners provide. Expect this to fail unless you use
+# powerful self-hosted runners.
+
+jobs:
+  android-build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 360
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Set up Java
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
+
+      - name: Install build dependencies (placeholder)
+        run: |
+          echo "This step would normally install the massive Chromium/Brave build dependencies."
+          echo "On real self-hosted runners you would run the official install-build-deps scripts."
+          sudo apt-get update
+          sudo apt-get install -y build-essential python3 git curl
+
+      - name: Placeholder - Clone and init Brave source
+        run: |
+          echo "In a real setup you would:"
+          echo "  git clone https://github.com/brave/brave-core.git src/brave"
+          echo "  pnpm run init --target_os=android --target_arch=arm64"
+          echo "This downloads tens of GB and takes a long time."
+          echo "Skipping actual download on GitHub-hosted runner."
+
+      - name: Placeholder - Apply Unbrave patches / rebrand
+        run: |
+          echo "Here you would:"
+          echo "  - Change application ID / package name"
+          echo "  - Remove all Brave branding and trademarks"
+          echo "  - Disable Leo, Rewards, Wallet, VPN, Tor, News, telemetry, etc."
+          echo "  - Update AndroidManifest, strings, icons, etc."
+
+      - name: Placeholder - Build Android
+        run: |
+          echo "Real command would be something like:"
+          echo "  pnpm run build --target_os=android --target_arch=arm64 --target_android_output_format=apk"
+          echo "This step is intentionally not executed."
+
+      - name: Upload artifact (placeholder)
+        if: false
+        uses: actions/upload-artifact@v4
+        with:
+          name: unbrave-android-apk
+          path: out/android_*/apks/*.apk
